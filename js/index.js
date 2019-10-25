@@ -4,25 +4,30 @@ async function consultar() {
     enableSpinner();
     let cep = $('#cep').val();
     await $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
-        let thead = $("#tabela thead");
-        if (thead.children().length == 0) {
-            $("#tabela thead").append(
+        if (dados.cep == undefined) {
+            alert("CEP não existente");
+        }
+        else {
+            let thead = $("#tabela thead");
+            if (thead.children().length == 0) {
+                $("#tabela thead").append(
+                    "<tr>" +
+                    "<th scope='col'>CEP</th>" +
+                    "<th scope='col'>Logradouro</th>" +
+                    "<th scope='col'>Bairro</th>" +
+                    "<th scope='col'>Localidade</th>" +
+                    "</tr>"
+                );
+            }
+            $("#tabela tbody").append(
                 "<tr>" +
-                "<th scope='col'>CEP</th>" +
-                "<th scope='col'>Logradouro</th>" +
-                "<th scope='col'>Bairro</th>" +
-                "<th scope='col'>Localidade</th>" +
+                "<td>" + dados.cep + "</td>" +
+                "<td>" + dados.logradouro + "</td>" +
+                "<td>" + dados.bairro + "</td>" +
+                "<td>" + dados.localidade + "</td>" +
                 "</tr>"
             );
         }
-        $("#tabela tbody").append(
-            "<tr>" +
-            "<td>" + dados.cep + "</td>" +
-            "<td>" + dados.logradouro + "</td>" +
-            "<td>" + dados.bairro + "</td>" +
-            "<td>" + dados.localidade + "</td>" +
-            "</tr>"
-        );
     });
     disableSpinner();
 }
