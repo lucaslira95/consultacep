@@ -15,7 +15,8 @@ async function consultar() {
                     "<th scope='col'>CEP</th>" +
                     "<th scope='col'>Logradouro</th>" +
                     "<th scope='col'>Bairro</th>" +
-                    "<th scope='col'>Localidade</th>" +
+                    "<th scope='col'>Cidade</th>" +
+                    "<th scope='col'>Estado</th>" +
                     "</tr>"
                 );
             }
@@ -25,6 +26,7 @@ async function consultar() {
                 "<td>" + dados.logradouro + "</td>" +
                 "<td>" + dados.bairro + "</td>" +
                 "<td>" + dados.localidade + "</td>" +
+                "<td>" + dados.uf + "</td>" +
                 "</tr>"
             );
         }
