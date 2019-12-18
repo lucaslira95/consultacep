@@ -1,4 +1,10 @@
-document.getElementById("consultar").addEventListener("click", consultar, false);
+document.getElementById("consultar").addEventListener("click", consultar);
+document.getElementById("cep").addEventListener("keypress", function(event){
+    if(event.keyCode === 13){
+        event.preventDefault();
+        $('#consultar').click();
+    }
+});
 
 async function consultar() {
     enableSpinner();
@@ -13,6 +19,10 @@ async function consultar() {
             "</button>" +
             "</div>").insertAfter('#cep-input');
         $('#cep').val('');
+        $('#cep').focus();
+        $('.alert').on('close.bs.alert', function () {
+            $('#cep').focus();
+        })
 
     }
     else {
@@ -26,6 +36,10 @@ async function consultar() {
                     "</button>" +
                     "</div>").insertAfter('#cep-input');
                 $('#cep').val('');
+                $('#cep').focus();
+                $('.alert').on('close.bs.alert', function () {
+                    $('#cep').focus();
+                })
             }
             else {
                 let thead = $("#tabela thead");
@@ -50,6 +64,7 @@ async function consultar() {
                     "</tr>"
                 );
                 disableSpinner();
+                $('#cep').focus();
             }
         });
     }
@@ -66,4 +81,3 @@ function disableSpinner() {
     $("#consultar").attr("disabled", false);
     $("#consultar").html('Consultar');
 }
-
