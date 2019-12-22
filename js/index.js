@@ -1,6 +1,6 @@
 document.getElementById("consultar").addEventListener("click", consultar);
-document.getElementById("cep").addEventListener("keypress", function(event){
-    if(event.keyCode === 13){
+document.getElementById("cep").addEventListener("keypress", function (event) {
+    if (event.keyCode === 13) {
         event.preventDefault();
         $('#consultar').click();
     }
@@ -10,6 +10,8 @@ async function consultar() {
     enableSpinner();
     let cep = $('#cep').val().replace(/\D/g, '');
     var validacep = /^[0-9]{8}$/;
+
+
     if (!validacep.test(cep)) {
         disableSpinner();
         $("<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
@@ -23,10 +25,13 @@ async function consultar() {
         $('.alert').on('close.bs.alert', function () {
             $('#cep').focus();
         })
-
     }
+
+
     else {
+
         await $.getJSON("https://viacep.com.br/ws/" + cep + "/json/?callback=?", function (dados) {
+
             if (dados.cep == undefined) {
                 disableSpinner();
                 $("<div class='alert alert-warning alert-dismissible fade show' role='alert'>" +
@@ -41,8 +46,10 @@ async function consultar() {
                     $('#cep').focus();
                 })
             }
+
             else {
                 let thead = $("#tabela thead");
+
                 if (thead.children().length == 0) {
                     $("#tabela thead").append(
                         "<tr>" +
@@ -63,6 +70,7 @@ async function consultar() {
                     "<td>" + dados.uf + "</td>" +
                     "</tr>"
                 );
+                
                 disableSpinner();
                 $('#cep').focus();
             }
