@@ -8,6 +8,7 @@ document.getElementById("cep").addEventListener("keypress", function (event) {
 
 async function consultar() {
     enableSpinner();
+    buttonSwitch("consultar", false);
     let cep = $('#cep').val().replace(/\D/g, '');
     var validacep = /^[0-9]{8}$/;
 
@@ -20,6 +21,7 @@ async function consultar() {
             "<span aria-hidden='true'>&times;</span>" +
             "</button>" +
             "</div>").insertAfter('#cep-input');
+        buttonSwitch("consultar", true);
         $('#cep').val('');
         $('#cep').focus();
         $('.alert').on('close.bs.alert', function () {
@@ -40,6 +42,7 @@ async function consultar() {
                     "<span aria-hidden='true'>&times;</span>" +
                     "</button>" +
                     "</div>").insertAfter('#cep-input');
+                buttonSwitch("consultar", true);
                 $('#cep').val('');
                 $('#cep').focus();
                 $('.alert').on('close.bs.alert', function () {
@@ -70,8 +73,10 @@ async function consultar() {
                     "<td>" + dados.uf + "</td>" +
                     "</tr>"
                 );
-                
+
+                buttonSwitch("consultar", true);
                 disableSpinner();
+                $('#cep').val('');
                 $('#cep').focus();
             }
         });
@@ -88,4 +93,8 @@ function disableSpinner() {
     $("#consultar").empty();
     $("#consultar").attr("disabled", false);
     $("#consultar").html('Consultar');
+}
+
+function buttonSwitch(element, state) {
+    document.getElementById(element).enabled = state;
 }
