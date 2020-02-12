@@ -78,6 +78,10 @@ function insertAlert(cep, suffixMessage) {
         "<span aria-hidden='true'>&times;</span>" +
         "</button>" +
         "</div>").insertAfter('#cep-input');
+
+        setTimeout(function() {
+            $(".alert").alert('close');
+        }, 3000);
 }
 
 function insertAdress(dados) {
